@@ -1,6 +1,13 @@
+###> Devilbox settings ###
+.devilbox/
+htdocs
+###< Devilbox settings ###
+
+###> laravel/lumen settings ###
 /vendor
 /.idea
 Homestead.json
 Homestead.yaml
 .env
 .phpunit.result.cache
+###< laravel/lumen settings ###

@@ -10,4 +10,6 @@ Homestead.json
 Homestead.yaml
 .env
 .phpunit.result.cache
+/.phpintel
+/.settings
 ###< laravel/lumen settings ###

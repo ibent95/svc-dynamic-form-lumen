@@ -1,6 +1,10 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/**
+ * Router
+ * 
+ * @var \Laravel\Lumen\Routing\Router $router
+ */
 
 /*
 |--------------------------------------------------------------------------
@@ -12,22 +16,24 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->group(['prefix' => '/api'], function () use ($router) {
+$router->group(
+    ['prefix' => '/public/api/v1'], function () use ($router) {
 
-    $router->group(['prefix' => '/v1'], function () use ($router) {
+        $router->get('/', 'V1\MainQueryController@index');
 
-        $router->get('/', function () use ($router) {
-            $appVersion = $router->app->version();
-            return response()->json([
-                'message' => 'Welcome to Dynamic Form service with ' . $appVersion,
-                'date' => date('Y-m-d'),
-            ], 200);
-        });
+        $router->get(
+            '/key', function () {
+                return \Illuminate\Support\Str::random(32);
+            }
+        );
 
-        $router->get('/key', function () {
-            return \Illuminate\Support\Str::random(32);
-        });
+        $router->group(
+            ['prefix' => '/publications'], function () use ($router) {
 
-    });
+                $router->get('/', 'V1\PublicationQueryController@index');
 
-});
+            }
+        );
+
+    }
+);

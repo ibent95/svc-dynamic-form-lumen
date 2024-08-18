@@ -13,3 +13,4 @@ Homestead.yaml
 /.phpintel
 /.settings
 ###< laravel/lumen settings ###
+/nbproject/private/

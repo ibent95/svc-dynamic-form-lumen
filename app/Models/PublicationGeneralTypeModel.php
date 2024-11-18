@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Entity for Publication
+ * Entity for PublicationFormVersion
  */
 
 namespace App\Models;
@@ -9,62 +9,62 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Publication
+ * Class PublicationFormVersion
  */
-class Publication extends Model
+class PublicationGeneralTypeModel extends Model
 {
 
     /**
      * Table name
-     * 
+     *
      * @var string
      */
-    protected $table = "pendaftaran";
+    protected $table = "publication_general_type";
 
     /**
      * CREATED_AT column name
-     * 
+     *
      * @var string
      */
-    const CREATED_AT = 'tgl_input';
+    const CREATED_AT = 'created_at';
 
     /**
      * UPDATED_AT column name
-     * 
+     *
      * @var string
      */
-    const UPDATED_AT = 'tgl_update';
+    const UPDATED_AT = 'updated_at';
 
     /**
      * The column names that should be guard
-     * 
+     *
      * @var array
      */
     protected $guarded = [];
 
     /**
      * The fillable column names
-     * 
+     *
      * @var array
      */
     protected $fillable = ['row_id', 'id', 'id_status_proses', 'id_verifikator', 'nomor_registrasi', 'niu', 'id_lowongan', 'id_kategori_kelompok_pegawai', 'kd_kategori_kelompok_pegawai', 'tgl_pendaftaran', 'tgl_mulai', 'tgl_selesai', 'id_status_pendaftaran', 'kd_status_pendaftaran', 'user_input', 'user_update', 'id_status_verifikasi', 'kd_status_verifikasi', 'flag_ajukan_perbaikan'];
 
     /**
      * The hidden column names
-     * 
+     *
      * @var array
      */
-    protected $hidden = ['row_id', 'id', 'id_status_proses', 'id_verifikator', 'id_lowongan', 'id_kategori_kelompok_pegawai', 'id_status_pendaftaran', 'id_status_verifikasi', 'id_tahap', 'flag_aktif', 'flag_delete', 'flag_terpakai', 'user_input', 'tgl_input', 'user_update', 'tgl_update'];
+    protected $hidden = ['row_id', 'id', 'id_publication_type', 'flag_active', 'create_user', 'created_at', 'update_user', 'updated_at'];
 
     /**
      * The properties that want to be cast and the types
-     * 
+     *
      * @var array
      */
     protected $casts = [
-        'lahir_tgl' => 'datetime:Y-m-d H:i:s',
-        'tgl_input' => 'datetime:Y-m-d H:i:s',
-        'tgl_update' => 'datetime:Y-m-d H:i:s',
+        'grid_system' => 'json',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     /**
@@ -73,5 +73,20 @@ class Publication extends Model
      * @var array
      */
     protected $with = [];
+
+    //public function hasOneRelationship()
+    //{
+    //    return $this->hasOne(TargetModel::class, 'id', 'id_target_foreign_key_column_name_in_this_table');
+    //}
+
+    //public function hasmanyRelationship()
+    //{
+    //    return $this->hasMany(TargetModel::class, 'id_target_foreign_key_column_name_in_this_table', 'id');
+    //}
+
+    public function scopeActive($query): void
+    {
+        $query->where('flag_active', true);
+    }
 
 }

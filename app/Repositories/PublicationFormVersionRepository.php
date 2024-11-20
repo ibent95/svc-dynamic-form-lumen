@@ -68,14 +68,39 @@ class PublicationFormVersionRepository implements RepositoryInterface
         return $this->results->first();
     }
 
-    public function create(array $itemDetails): void
+    public function create(array $itemDetails): PublicationFormVersionModel
     {
-        // code
+        $this->results = $this->model->saveOrFail();
+        return $this->results;
     }
 
-    public function updateById(mixed $id, array $newItemDetails): void
+    public function updateById(mixed $id, array $newItemDetails): PublicationFormVersionModel
     {
-        // code
+        $this->results = $this->model->saveOrFail();
+        return $this->results;
+    }
+
+    public function upsert(array $newItemDetails)
+    {
+        $this->results = $this->model::upsert(
+            $newItemDetails,
+            uniqueBy: ['uuid'],
+            update: [
+                'id',
+                'id_publication_type',
+                'publication_form_version_name',
+                'publication_form_version_code',
+                'grid_system',
+                'flag_active',
+                'create_user',
+                'created_at',
+                'update_user',
+                'updated_at',
+                'uuid'
+            ]
+        );
+
+        return $this->results;
     }
 
     public function deleteById(mixed $id): void

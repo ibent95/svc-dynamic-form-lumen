@@ -7,6 +7,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 
 /**
  * [Description CommonService]
@@ -28,16 +29,37 @@ class CommonService
      */
     private $loggerDefaultMessage;
 
+    private $results;
+
     /**
      * [Description for __construct]
      *
      * @param Log $logger
-     * 
+     *
      */
     public function __construct(Log $_logger)
     {
         $this->_logger = $_logger;
         $this->loggerDefaultMessage = 'Info';
+        //$this->results = null;
+    }
+
+    public function createID(): string
+    {
+        $this->results = Uuid::uuid7();
+        return $this->results;
+    }
+
+    public function createIDTimestamp(): string
+    {
+        $this->results = date('YmdHis');
+        return $this->results;
+    }
+
+    public function createUUID(): string
+    {
+        $this->results = Uuid::uuid7();
+        return $this->results;
     }
 
     /**
@@ -46,9 +68,9 @@ class CommonService
      * @param string $type
      * @param string|null $message
      * @param array $context
-     * 
+     *
      * @return void
-     * 
+     *
      */
     public function setLogger(
         string $type = 'info', string $message = null, array $context = []

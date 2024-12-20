@@ -46,6 +46,13 @@ $router->group(
             $router->put('/publication-form-versions', 'V1\Configurations\PublicationFormVersionCommandController@save');
             $router->post('/publication-form-versions/{uuid}/disable', 'V1\Configurations\PublicationFormVersionCommandController@disable');
 
+            $router->get('/publication-general-type', 'V1\Configurations\PublicationGeneralTypeQueryController@index');
+            $router->get('/publication-general-types', 'V1\Configurations\PublicationGeneralTypeQueryController@getAll');
+            $router->get('/publication-general-types/{uuid}', 'V1\Configurations\PublicationGeneralTypeQueryController@detail');
+            $router->post('/publication-general-types', 'V1\Configurations\PublicationGeneralTypeCommandController@save');
+            $router->put('/publication-general-types', 'V1\Configurations\PublicationGeneralTypeCommandController@save');
+            $router->post('/publication-general-types/{uuid}/disable', 'V1\Configurations\PublicationGeneralTypeCommandController@disable');
+
         });
 
     }
